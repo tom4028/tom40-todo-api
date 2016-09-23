@@ -40,13 +40,12 @@ app.get('/todos',function(req,res){
 app.get('/todos/:id',function(req,res){
 	
 	var todoId =parseInt(req.params.id,10);
-	var matchedTodo = _.findWhere(todos,{id:todoId});
-	// var matchedTodo;
-	// todos.forEach(function(todo){
-	// 	if(todoId ===todo.id){
-	// 		matchedTodo = todo;
-	// 	}
-	// });
+	var matchedTodo;
+	todos.forEach(function(todo){
+		if(todoId ===todo.id){
+			matchedTodo = todo;
+		}
+	});
 	if(matchedTodo){
 		res.json(matchedTodo);
 	}else{
@@ -59,18 +58,8 @@ app.get('/todos/:id',function(req,res){
 //POST /todos
 
 app.post('/todos',function(req,res){
-	var body = _.pick(req.body,'description','completed');//_.pick ti only pick description and completed
+	var body = req.body;
 		console.log(body);
-
-
-
-		if(!_.isBoolean (body.completed) || !_.isString(body.description) || body.description.trim().length === 0){
-			return res.status(400).send();
-		}
-		body.description = body.description.trim();
-		//set body.description to be trimmed value
-
-
 	//add id field
 	body.id = todoNextId++;
 
