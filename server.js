@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var PORT = process.env.PORT || 3000;
+//var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
@@ -55,20 +55,7 @@ app.get('/todos/:id',function(req,res){
 	},function(e){
 		res.status(500).send();
 		});
-	//var matchedTodo =_.findWhere(todos,{id:todoId});
-	// var matchedTodo;
-
-	// todos.forEach(function(todo){	
-	// 	if(todoId === todo.id){
-	// 		matchedTodo = todo;
-	// 	}
-	// });
-
-	// if(matchedTodo){
-	// 	res.json(matchedTodo);
-	// }else{
-	// 	res.status(404).send('No matched todo.');
-	// }	
+	
 });
 
 
@@ -125,7 +112,7 @@ app.put('/todos/:id',function(req,res){
 });
 
 db.sequelize.sync().then(function(){
-	app.listen(PORT,function(){
-	console.log('Express listening on Port:'+PORT+"!");
+	app.listen(process.env.PORT || 3000,function(){
+	console.log('Express listening ......');
 });
 });
