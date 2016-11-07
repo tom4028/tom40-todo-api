@@ -5,8 +5,9 @@ var sequelize;
 if(env ==='production'){
 	sequelize = new Sequelize(proces.env.DATABASE_URL,{
 		dialect:'postgres'
-	})else{
-		var sequelize = new Sequelize(undefined,undefined,undefined,{
+	})
+	}else{
+		sequelize = new Sequelize(undefined,undefined,undefined,{
 			'dialect':'sqlite',
 			'storage':__dirname+'/data/dev-todo-api.sqlite'
 			});
