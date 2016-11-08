@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-//var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var db = require('./db.js');
@@ -128,9 +128,18 @@ app.put('/todos/:id',function(req,res){
 		res.status(500).send();
 	})
 });
+app.post('/users',function(req,res){
+	var body = _.pick(req.body,'email','password');
+
+	db.user.create(body).then(function(user){
+			res.json(user.toJSON());
+	},function(e){
+		res.status(400).json(e);
+	});
+});
 
 db.sequelize.sync().then(function(){
-	app.listen(process.env.PORT || 3000,function(){
-	console.log('Express listening ......');
+	app.listen(PORT,function(){
+	console.log('Express listening on Port:'+PORT+'......');
 });
 });
